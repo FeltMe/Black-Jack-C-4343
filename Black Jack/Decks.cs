@@ -13,7 +13,7 @@ namespace Black_Jack
 
         public Deck()
         {
-                
+
         }
         public void FillDeck()
         {
@@ -21,19 +21,19 @@ namespace Black_Jack
             CardValue TempCardValue = default(CardValue);
             int temp = 0;
             for (int i = 0; i < 4; i++)
-            {  
+            {
                 for (int j = 0; j < 13; j++)
                 {
                     Cards TempCard = new Cards();
 
                     if (j % 13 == 0)
                     {
-                        
+
                         TempCardValue = 0;
                         TempCard.Value = TempCardValue;
                         TempCard.Suit = TempCardSuit;
                     }
-                    else if(j % 13 == 1)
+                    else if (j % 13 == 1)
                     {
                         TempCardValue++;
                         TempCard.Value = TempCardValue;
@@ -106,7 +106,7 @@ namespace Black_Jack
                         TempCard.Suit = TempCardSuit;
                     }
                     CardsArr[temp] = TempCard;
-                    temp++;                    
+                    temp++;
                 }
                 TempCardSuit++;
             }
@@ -127,17 +127,24 @@ namespace Black_Jack
         {
             return CardsArr;
         }
-        public Cards[] Shuffle(Cards[] CurentCardsArr)
+        public static void Swap<T>(ref T lhs, ref T rhs)
         {
-            Cards[] ShuffleCards = new Cards[52];
-
-            for (int i = 0; i < 52; i++)
+            T temp = lhs;
+            lhs = rhs;
+            rhs = temp;
+        }
+        public Deck Shuffle(Deck CurentCardsArr)
+        {
+            int temp_min = Randomise.Random.Next(3, 10);
+            for (int i = 0; i < temp_min; i++)
             {
-                int Temp_rnd = Randomise.Random.Next(0, CurentCardsArr.Length);
-
-
+                for (int j = 0; j < 26; j++)
+                {
+                    Swap(ref CurentCardsArr.CardsArr[j], ref CurentCardsArr.CardsArr[j * 2]);
+                    Swap(ref CurentCardsArr.CardsArr[0], ref CurentCardsArr.CardsArr[j]);
+                }
             }
-            return ShuffleCards;
+            return CurentCardsArr;
         }
 
     }
